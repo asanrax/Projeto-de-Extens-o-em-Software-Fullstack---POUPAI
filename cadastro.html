@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Cadastro de Usuário</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Cadastro de Usuário</h1>
+  <form id="formCadastro">
+    <label>Nome:</label><br>
+    <input type="text" name="nome" required><br><br>
+
+    <label>Email:</label><br>
+    <input type="email" name="email" required><br><br>
+
+    <label>Senha:</label><br>
+    <input type="password" name="senha" required><br><br>
+
+    <label>Data de Nascimento:</label><br>
+    <input type="date" name="nascimento" required><br><br>
+
+    <label>Renda Mensal:</label><br>
+    <input type="number" name="renda" required><br><br>
+
+    <label>Profissão:</label><br>
+    <input type="text" name="profissao" required><br><br>
+
+    <label>Objetivo:</label><br>
+    <select name="objetivo" required>
+      <option value="">Selecione</option>
+      <option value="Economizar para objetivo específico">Economizar para objetivo específico</option>
+      <option value="Ter controle da economia">Ter controle da economia</option>
+      <option value="Organizar os gastos">Organizar os gastos</option>
+    </select><br><br>
+
+    <button type="submit">Cadastrar</button>
+  </form>
+
+  <p id="mensagem"></p>
+
+  <script>
+    const form = document.getElementById('formCadastro');
+    const mensagem = document.getElementById('mensagem');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const dados = Object.fromEntries(new FormData(form));
+
+      const resposta = await fetch('http://localhost:3000/api/cadastro', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(dados)
+      });
+
+      const resultado = await resposta.json();
+
+      if (resposta.ok) {
+        mensagem.textContent = resultado.mensagem;
+        form.reset();
+      } else {
+        mensagem.textContent = resultado.erro || 'Erro ao cadastrar.';
+      }
+    });
+  </script>
+</body>
+</html>
