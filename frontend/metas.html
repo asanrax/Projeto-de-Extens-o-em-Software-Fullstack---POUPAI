@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Cadastro de dados</title>
+  
+  <link rel="icon" type="image/x-icon" href="/frontend/money.ico">
+  <link rel="shortcut icon" type="image/x-icon" href="/frontend/money.ico">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="script.js"></script>
+</head>
+<body>
+
+  <div class="top-banner">
+    <img src="banner.png" alt="Banner do App" class="banner-image">
+  </div>
+
+  <div class="container">
+    <h2>Planejamento Financeiro</h2>
+    <form id="formMetas">
+
+      <label>1. Com o que você acha que mais gasta no mês?</label>
+      <select id="gasto" name="gasto" onchange="toggleOutros('gasto', 'gasto_outros')">
+        <option value="Alimentação">Alimentação</option>
+        <option value="Transporte">Transporte</option>
+        <option value="Lazer">Lazer</option>
+        <option value="Outros">Outros</option>
+      </select>
+      <input type="text" id="gasto_outros" name="gasto_outros" class="outros-input" placeholder="Especifique"><br><br>
+
+      <label>2. Por que você quer juntar dinheiro?</label>
+      <input type="text" name="motivo_juntar" required><br><br>
+
+      <label>3. Qual benefício você acha que terá ao juntar dinheiro?</label>
+      <input type="text" name="beneficio" required><br><br>
+
+      <label>4. Qual seu objetivo principal?</label>
+      <input type="text" name="objetivo" required><br><br>
+
+      <label for="renda">5. Qual sua renda mensal?</label>
+      <input type="number" id="renda" name="renda" required oninput="atualizarPorcentagem()" min="0"><br><br>
+
+      <label for="porcentagem">6. Quanto você acha que é suficiente para gastar?</label>
+      <input type="range" id="porcentagem" name="porcentagem" min="0" max="100" value="50" oninput="atualizarPorcentagem()">
+      <span id="valorSugerido">Valor sugerido: R$ 0,00</span>
+      <span id="porcentagemLabel">50%</span><br><br>
+
+      <script>
+        function atualizarPorcentagem() {
+            // 1. Obter os elementos e seus valores
+            const rendaInput = document.getElementById('renda');
+            const porcentagemInput = document.getElementById('porcentagem');
+            const porcentagemLabel = document.getElementById('porcentagemLabel');
+            const valorSugeridoSpan = document.getElementById('valorSugerido');
+
+            // Converte para número, usando 0 se estiver vazio/inválido
+            const renda = parseFloat(rendaInput.value) || 0;
+            // Pega o valor da barra (0 a 100)
+            const porcentagem = parseInt(porcentagemInput.value);
+
+            // 2. Calcular o Valor Sugerido
+            // Multiplica a renda pela porcentagem convertida para decimal
+            const valorSugerido = renda * (porcentagem / 100);
+
+            // 3. Atualizar as labels na tela
+            
+            // Atualiza a porcentagem (ex: 50%)
+            porcentagemLabel.textContent = `${porcentagem}%`;
+
+            // Atualiza o valor sugerido formatado como moeda brasileira (R$ 0,00)
+            valorSugeridoSpan.textContent = `Valor sugerido: R$ ${valorSugerido.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+        }
+
+        // Garante que o cálculo e exibição inicial de 50% ocorram quando a página carregar
+        atualizarPorcentagem();
+      </script>
+
+      <label>7. Você já possui alguma reserva financeira?</label>
+      <select name="reserva">
+        <option value="Sim">Sim</option>
+        <option value="Não">Não</option>
+      </select><br><br>
+
+      <div class="pessoal-section">
+        <h2 class="pessoal-titulo">Informações Pessoais</h2>
+
+        <label>Nome completo:</label>
+        <input type="text" name="nome" required>
+
+        <label>Data de nascimento:</label>
+        <input type="date" name="nascimento" required>
+
+        <label>CPF:</label>
+        <input type="text" name="cpf" required>
+
+        <label>RG:</label>
+        <input type="text" name="rg">
+
+        <label>Telefone:</label>
+        <input type="tel" name="telefone" required>
+
+        <label>Email:</label>
+        <input type="email" name="email" required>
+
+        <label>Endereço completo:</label>
+        <input type="text" name="endereco" required>
+
+        <label>Estado civil:</label>
+        <select name="estado_civil">
+          <option value="Solteiro(a)">Solteiro(a)</option>
+          <option value="Casado(a)">Casado(a)</option>
+          <option value="Divorciado(a)">Divorciado(a)</option>
+          <option value="Viúvo(a)">Viúvo(a)</option>
+        </select>
+
+        <label>Profissão:</label>
+        <input type="text" name="profissao">
+      </div>
+
+      <div class="form-footer">
+        <div class="termos-container">
+          <label class="termos-label">
+            <input type="checkbox" id="termos" name="termos">
+            <span>Aceito os <a href="termos.html" target="_blank">termos de uso</a></span>
+          </label>
+        </div>
+
+        <button type="submit" class="cadastro-button" id="botaoCadastrar">Cadastrar</button>
+      </div>
+    </form>
+
+    <p id="mensagem"></p>
+  </div>
+
+  <script>
+    const formMetas = document.getElementById('formMetas');
+    const mensagem = document.getElementById('mensagem');
+
+    formMetas.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Verificar se termos foram aceitos
+      const termos = document.getElementById('termos');
+      if (!termos.checked) {
+        mensagem.textContent = 'Você deve aceitar os termos de uso.';
+        mensagem.style.color = 'red';
+        return;
+      }
+
+      // Pegar dados do formulário
+      const dados = Object.fromEntries(new FormData(formMetas));
+
+      // Pegar senha do localStorage (usuário logado)
+      const currentUser = localStorage.getItem('currentUser');
+      if (!currentUser) {
+        mensagem.textContent = 'Usuário não logado. Faça login primeiro.';
+        mensagem.style.color = 'red';
+        return;
+      }
+      const users = JSON.parse(localStorage.getItem('users')) || {};
+      const senha = users[currentUser];
+      if (!senha) {
+        mensagem.textContent = 'Senha não encontrada. Refaça o cadastro inicial.';
+        mensagem.style.color = 'red';
+        return;
+      }
+      dados.senha = senha;
+
+      // Enviar para o backend
+      try {
+        const resposta = await fetch('http://localhost:3000/api/cadastro', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(dados)
+        });
+
+        const resultado = await resposta.json();
+
+        if (resposta.ok) {
+          mensagem.textContent = resultado.mensagem;
+          mensagem.style.color = 'green';
+          // Redirecionar para dashboard imediatamente
+          window.location.href = 'dashboard.html';
+        } else {
+          mensagem.textContent = resultado.erro || 'Erro ao cadastrar.';
+          mensagem.style.color = 'red';
+        }
+      } catch (error) {
+        mensagem.textContent = 'Erro de conexão.';
+        mensagem.style.color = 'red';
+      }
+    });
+  </script>
+
+</body>
+</html>

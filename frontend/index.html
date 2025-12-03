@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Poupaí</title>
+  
+  <link rel="icon" type="image/x-icon" href="/frontend/money.ico">
+  <link rel="shortcut icon" type="image/x-icon" href="/frontend/money.ico">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top-banner">
+    <img src="banner.png" alt="Banner do menu" class="banner-image">
+  </header>
+
+  <div class="container">
+    <div class="form-area">
+      <div class="form-box">
+        <h2>Login</h2>
+        <label for="loginUser">Usuário:</label>
+        <input type="text" id="loginUser" placeholder="Digite seu usuário">
+        <label for="loginPass">Senha:</label>
+        <input type="password" id="loginPass" placeholder="Digite sua senha">
+        <button onclick="login()">Entrar</button>
+      </div>
+
+      <div class="form-box">
+        <h2>Cadastro</h2>
+        <label for="registerUser">Novo Usuário:</label>
+        <input type="text" id="registerUser" placeholder="Crie um usuário">
+        <label for="registerPass">Nova Senha:</label>
+        <input type="password" id="registerPass" placeholder="Crie uma senha">
+        <label for="confirmPass">Confirmar Senha:</label>
+        <input type="password" id="confirmPass" placeholder="Confirme a senha">
+        <button onclick="register()">Cadastrar</button>
+      </div>
+    </div>
+  </div>
+  
+<div class="middle-image-wrapper">
+  <img src="meio.png" alt="Imagem intermediária" class="middle-image">
+</div>
+
+  <div class="benefit-section">
+    <h3>💡 Benefício do GranaFácil</h3>
+    <p>Conecte seu banco, importe seus lançamentos e categorize seus gastos com facilidade!</p>
+    <div class="image-wrapper">
+      <img src="beneficio.png" alt="Benefício do aplicativo" class="benefit-image">
+    </div>
+  </div>
+
+  <p id="message"></p>
+  <script src="cadastro.js"></script>
+</body>
+</html>

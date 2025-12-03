@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Termos de Uso - App de Gestão Financeira</title>
+  
+  <link rel="icon" type="image/x-icon" href="/frontend/money.ico">
+  <link rel="shortcut icon" type="image/x-icon" href="/frontend/money.ico">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    header {
+      width: 100%;
+      text-align: center;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    header img {
+      width: 100%;
+      max-height: 300px;
+      object-fit: cover;
+      display: block;
+    }
+    main {
+      padding: 40px;
+    }
+    section {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1, h2 {
+      color: #2c3e50;
+    }
+    p {
+      line-height: 1.6;
+    }
+    /* ESTILO DO BOTÃO ARREDONDADO (#8BFFCA) */
+    .btn-aceitar-termos {
+        background-color: #8BFFCA;
+        color: black; 
+        border: none;
+        border-radius: 50px;
+        padding: 12px 30px; 
+        font-size: 1.1em; 
+        font-weight: bold; 
+        cursor: pointer;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .btn-aceitar-termos:hover {
+        background-color: #79e6b6;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+  </style>
+  <script>
+    // Se esta página foi aberta por um link (target="_blank"), esta função marca o checkbox na página mãe e fecha a janela.
+    function acceptAndClose() {
+        try {
+            if (window.opener && !window.opener.closed) {
+                const checkbox = window.opener.document.getElementById('termos');
+                
+                if (checkbox) {
+                    checkbox.checked = true;
+                    
+                    if (typeof window.opener.habilitarBotao === 'function') {
+                        window.opener.habilitarBotao();
+                    } else {
+                        checkbox.dispatchEvent(new Event('change'));
+                    }
+                }
+            }
+        } catch (e) {
+            console.error("Erro ao tentar acessar a janela principal:", e);
+        }
+        window.close();
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <img src="banner.png" alt="Banner do Aplicativo">
+  </header>
+  <main>
+    <section>
+      <h1>Termos de Uso</h1>
+      <p>Bem-vindo ao nosso aplicativo de gestão financeira, desenvolvido como parte de um projeto acadêmico para fins educacionais. Ao acessar e utilizar este aplicativo, você concorda com os seguintes termos e condições:</p>
+
+      <h2>1. Finalidade Educacional</h2>
+      <p>Este aplicativo foi criado exclusivamente para fins acadêmicos, como parte de um projeto universitário. Ele não deve ser utilizado como ferramenta profissional de gestão financeira, nem como substituto de consultoria contábil ou financeira especializada.</p>
+
+      <h2>2. Responsabilidade do Usuário</h2>
+      <p>O usuário é responsável por todas as informações inseridas no aplicativo. Embora nos esforcemos para garantir a precisão dos cálculos e funcionalidades, não garantimos que os resultados sejam totalmente corretos ou aplicáveis em situações reais de mercado.</p>
+
+      <h2>3. Privacidade e Proteção de Dados</h2>
+      <p>Este aplicativo não coleta, armazena ou compartilha dados pessoais sensíveis. Todas as informações inseridas são mantidas localmente e utilizadas apenas para fins de simulação. Não há integração com servidores externos ou bancos de dados comerciais.</p>
+
+      <h2>4. Propriedade Intelectual</h2>
+      <p>Todo o conteúdo, design, código-fonte e funcionalidades do aplicativo são de propriedade dos desenvolvedores do projeto acadêmico. É proibida a reprodução, modificação ou distribuição sem autorização prévia.</p>
+
+      <h2>5. Limitações Técnicas</h2>
+      <p>Por se tratar de um projeto universitário, o aplicativo pode conter erros, limitações de funcionalidade e instabilidades. Não nos responsabilizamos por qualquer perda, dano ou prejuízo decorrente do uso do aplicativo.</p>
+
+      <h2>6. Atualizações e Suporte</h2>
+      <p>Este aplicativo não possui suporte técnico contínuo. Atualizações podem ser realizadas conforme disponibilidade dos desenvolvedores, sem garantia de frequência ou continuidade.</p>
+
+      <h2>7. Aceitação dos Termos</h2>
+      <p>Ao utilizar este aplicativo, você declara estar ciente de que se trata de uma ferramenta acadêmica e concorda com todos os termos aqui descritos. Caso não concorde, recomendamos que não utilize o aplicativo.</p>
+
+      <h2>8. Contato</h2>
+      <p>Para dúvidas ou sugestões relacionadas ao projeto, entre em contato com os desenvolvedores por meio dos canais disponibilizados na plataforma.</p>
+      <button class="btn-aceitar-termos" onclick="acceptAndClose()">Aceitar os Termos</button>
+      <p><strong>Última atualização:</strong> Novembro de 2025</p>
+    </section>
+  </main>
+</body>
+</html>

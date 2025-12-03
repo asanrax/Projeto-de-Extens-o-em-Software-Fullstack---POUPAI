@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard Financeira</title>
+    
+    <link rel="icon" type="image/x-icon" href="/frontend/money.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="/frontend/money.ico">
+    <link rel="stylesheet" href="style-dashboard.css" /> 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="banner">
+    <img src="banner.png" alt="Banner Financeiro" class="banner-image-header" /> 
+    
+    <nav class="header-menu"> 
+        <div class="user-info">
+            <h3>Olá, <span id="userNameDisplay">Usuário</span>!</h3> 
+        </div>
+        
+        <ul class="menu-list">
+            <li><a href="metas.html">🎯 Metas</a></li> 
+            <li><a href="termos.html">📄 Termos</a></li> 
+            <li class="logout"><a href="index.html" onclick="logout()">🚪 Sair</a></li>
+        </ul>
+    </nav>
+</div>
+
+<div class="container">
+    <h1>Dashboard Financeira</h1>
+
+    <section class="summary">
+        <div class="card green" id="saldoTotal">Saldo Total: R$ 0,00</div>
+        <div class="card blue" id="totalReceitas">Receitas: R$ 0,00</div>
+        <div class="card red" id="totalDespesas">Despesas: R$ 0,00</div>
+        <div class="card yellow" id="taxaEconomia">Taxa de Economia: 0.0%</div>
+    </section>
+
+    <section class="charts">
+        <div class="chart-box">
+            <h2>Fluxo de Caixa Mensal</h2>
+            <canvas id="cashFlowChart"></canvas> 
+        </div>
+
+        <div class="chart-box">
+            <h2>Gastos por Categoria</h2>
+            <canvas id="categoryChart"></canvas> 
+        </div>
+    </section>
+
+    <section class="budget">
+        <h2>Controle de Orçamento</h2> 
+    </section>
+</div>
+ 
+<section class="categorias">
+    <div class="categorias-header">
+        <h2>Categorias e Orçamentos</h2>
+        <button onclick="abrirModal()" class="btn-adicionar">+ Nova Categoria</button>
+    </div>
+
+    <div id="categoriaGrid" class="categoria-grid">
+        </div>
+
+    <div class="resumo-categorias">
+        <div>Total de Categorias: <strong id="totalCategorias">0</strong></div>
+        <div>Dentro do Orçamento: <strong id="dentroOrcamento">0</strong></div>
+        <div>Acima do Orçamento: <strong id="acimaOrcamento">0</strong></div>
+    </div>
+</section>
+
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="fecharModal()">&times;</span>
+        <h3>Adicionar Categoria</h3>
+        
+        <input type="text" id="nomeCategoria" list="categoriasPadrao" placeholder="Nome da categoria" required/>
+        <datalist id="categoriasPadrao">
+            <option value="Streaming">
+            <option value="Alimentação">
+            <option value="Transporte">
+            <option value="Moradia">
+            <option value="Lazer">
+            <option value="Saúde">
+            <option value="Educação">
+            <option value="Investimentos">
+            <option value="Imprevistos">
+        </datalist>
+        
+        <input type="number" id="gastoCategoria" placeholder="Gasto/Valor (R$)" step="0.01" required/>
+        
+        <input type="number" id="orcamentoCategoria" placeholder="Orçamento/Meta (R$)" step="0.01" required/>
+        
+        <button onclick="adicionarCategoria()">Adicionar</button>
+    </div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

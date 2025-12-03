@@ -1,0 +1,4 @@
+- [ ] Modificar renderizarDadosUsuarios em script.js: adicionar coluna "Gráfico" no thead da tabela
+- [ ] Adicionar <td> com <canvas> pequeno (100x50px) para cada linha de usuário no tbody
+- [ ] Após renderizar a tabela, criar instâncias de Chart.js (doughnut) para cada canvas, calculando gasto, reserva e disponível (renda - gasto - reserva)
+- [ ] Testar a funcionalidade no dashboard administrador
